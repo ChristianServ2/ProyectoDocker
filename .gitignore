@@ -1,0 +1,13 @@
+# Entorno virtual
+venv/
+
+# Archivos de Python compilados
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos de configuración local
+*.env
+
+# Logs
+*.log
