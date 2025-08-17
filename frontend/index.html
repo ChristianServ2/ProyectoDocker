@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login / Registro</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --text-light: #f3f3f3;
+  --stone-top: #d0d0d0;
+  --stone-bottom: #8f8f8f;
+  --panel-dark: #1f1f1f;
+}
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: url('assets/1A.jpg') center center / cover no-repeat fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+}
+
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.55));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Panel principal (simula el menú) */
+.container {
+  width: 380px;
+  padding: 22px;
+  border-radius: 6px;
+  position: relative;
+  z-index: 1; /* encima del overlay */
+  background: linear-gradient(#2b2b2b, #1e1e1e);
+  border: 3px solid rgba(0,0,0,0.8);
+  box-shadow:
+    0 14px 30px rgba(0,0,0,0.6),
+    inset 0 -6px 0 rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+/* Título grande para dar "sensación" Minecraft */
+.title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  color: #e9e9e9;
+  margin: -6px 0 10px;
+  text-shadow: -2px -2px 0 #000, 2px 2px 0 rgba(255,255,255,0.04);
+}
+
+/* Botones grandes "piedra" */
+.form-button {
+  display: block;
+  width: 100%;
+  padding: 14px 12px;
+  margin: 10px 0;
+  background: linear-gradient(var(--stone-top), var(--stone-bottom));
+  border: 4px solid #222;
+  border-radius: 4px;
+  box-shadow: 0 6px 0 #000, inset 0 -4px 0 rgba(0,0,0,0.18);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  color: #0b0b0b;
+  cursor: pointer;
+}
+
+/* Toggle (texto pequeño, transparente) */
+.toggle-btn {
+  background: transparent;
+  color: var(--text-light);
+  border: none;
+  cursor: pointer;
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+
+/* Inputs claros para contraste */
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 2px solid rgba(0,0,0,0.55);
+  background: rgba(255,255,255,0.95);
+  font-size: 14px;
+}
+
+/* Mensajes */
+.message { margin-top: 6px; font-size: 12px; }
+.error { color: #ff7b7b; }
+.success { color: #7bffb6; }
+
+/* Pie pequeño */
+.footer-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  position: absolute;
+  left: 12px;
+  bottom: 6px;
+}
+
+/* Responsive */
+@media (max-width: 420px) {
+  .container { width: 92%; padding: 16px; }
+  .form-button { padding: 12px; font-size: 12px; }
+  .title { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+  <!-- Overlay oscuro -->
+  <div class="background-overlay" aria-hidden="true"></div>
+
+  <div class="container" role="main" aria-labelledby="appTitle">
+    <!-- título decorativo (no altera funcionalidad) -->
+    <div id="appTitle" class="title">MENÚ</div>
+
+    <!-- Botón toggle: mantiene el id original para que app.js lo maneje -->
+    <button id="toggleBtn" class="toggle-btn">¿No tienes cuenta? Regístrate</button>
+
+    <!-- Formulario Login (IDs intactos) -->
+    <form id="loginForm">
+      <h2 style="display:none">Iniciar sesión</h2>
+      <input type="text" id="loginUsername" placeholder="Usuario" required />
+      <input type="password" id="loginPassword" placeholder="Contraseña" required />
+      <button type="submit" class="form-button">Entrar</button>
+      <div id="loginMessage" class="message"></div>
+    </form>
+
+    <!-- Formulario Registro (IDs intactos) -->
+    <form id="registerForm" style="display:none;">
+      <h2 style="display:none">Registrar usuario</h2>
+      <input type="text" id="registerUsername" placeholder="Usuario" required />
+      <input type="password" id="registerPassword" placeholder="Contraseña" required />
+      <input type="password" id="registerPasswordConfirm" placeholder="Confirmar contraseña" required />
+      <button type="submit" class="form-button">Registrar</button>
+      <div id="registerMessage" class="message"></div>
+    </form>
+
+    <div class="footer-note">Minecraft 1.21.8</div>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
