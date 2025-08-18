@@ -1,10 +1,14 @@
 from flask import Flask
-from backend.config.config import Config
-from backend.routes.auth import auth_bp
+from config.config import Config
+from routes.auth import auth_bp
+from flask_cors import CORS  # 👈 importamos CORS
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # Habilitar CORS para todas las rutas
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # Registrar Blueprints
     app.register_blueprint(auth_bp, url_prefix="/api/auth")

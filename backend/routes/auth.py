@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
-from backend.config.config import get_db
-from backend.models.user import User
+from config.config import get_db
+from models.user import User
 from sqlalchemy.exc import IntegrityError
 import jwt
 import datetime
-from backend.config.config import Config
+from config.config import Config
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -22,8 +22,7 @@ def register():
     db = next(get_db())
 
     try:
-        nuevo_usuario = User(nombre=nombre, email=email)
-        nuevo_usuario.set_password(password)
+        nuevo_usuario = User(nombre=nombre, email=email, password=password)
         db.add(nuevo_usuario)
         db.commit()
         return jsonify({"message": "Usuario registrado correctamente"}), 201
@@ -32,6 +31,7 @@ def register():
         return jsonify({"error": "El email ya está registrado"}), 409
     finally:
         db.close()
+
 
 # Login de usuario
 @auth_bp.route("/login", methods=["POST"])
@@ -46,7 +46,7 @@ def login():
     db = next(get_db())
     user = db.query(User).filter(User.email == email).first()
 
-    if user and user.check_password(password):
+    if user and user.password == password:   # Comparación directa (texto plano)
         token = jwt.encode(
             {
                 "user_id": user.id,

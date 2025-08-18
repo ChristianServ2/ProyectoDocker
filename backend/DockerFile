@@ -1,23 +1,18 @@
-# Imagen base de Python
+# Imagen base
 FROM python:3.11-slim
 
-# Establecer directorio de trabajo
+# Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar requirements y instalar dependencias
+# Copiar dependencias e instalarlas
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar todo el código al contenedor
+# Copiar el código del backend
 COPY . .
 
-# Variables de entorno (puedes sobreescribirlas en docker-compose)
-ENV FLASK_APP=backend/app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_RUN_PORT=5000
-
-# Exponer el puerto
+# Exponer puerto
 EXPOSE 5000
 
-# Comando para ejecutar Flask
-CMD ["flask", "run"]
+# Ejecutar app
+CMD ["python", "app.py"]

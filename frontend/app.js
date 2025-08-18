@@ -25,24 +25,27 @@ function clearMessages() {
   registerMessage.className = 'message';
 }
 
+// Login
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   clearMessages();
 
-  const username = document.getElementById('loginUsername').value.trim();
+  const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value.trim();
 
-  if (!username || !password) {
+  if (!email || !password) {
     loginMessage.textContent = 'Por favor, completa todos los campos.';
     loginMessage.classList.add('error');
     return;
   }
 
   try {
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ username, password })
+    const API_URL = "http://localhost:5000/api/auth";
+
+    const response = await fetch(`${API_URL}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
     });
 
     const data = await response.json();
@@ -50,9 +53,9 @@ loginForm.addEventListener('submit', async (e) => {
     if (response.ok) {
       loginMessage.textContent = '¡Login exitoso!';
       loginMessage.classList.add('success');
-      // Aquí puedes redirigir o hacer otras acciones
+      console.log("Token recibido:", data.token);
     } else {
-      loginMessage.textContent = data.message || 'Error en login';
+      loginMessage.textContent = data.error || 'Error en login';
       loginMessage.classList.add('error');
     }
   } catch (err) {
@@ -66,11 +69,12 @@ registerForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   clearMessages();
 
-  const username = document.getElementById('registerUsername').value.trim();
+  const nombre = document.getElementById('registerNombre').value.trim();
+  const email = document.getElementById('registerEmail').value.trim();
   const password = document.getElementById('registerPassword').value.trim();
   const passwordConfirm = document.getElementById('registerPasswordConfirm').value.trim();
 
-  if (!username || !password || !passwordConfirm) {
+  if (!nombre || !email || !password || !passwordConfirm) {
     registerMessage.textContent = 'Por favor, completa todos los campos.';
     registerMessage.classList.add('error');
     return;
@@ -83,10 +87,12 @@ registerForm.addEventListener('submit', async (e) => {
   }
 
   try {
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ username, password })
+    const API_URL = "http://localhost:5000/api/auth";
+
+    const response = await fetch(`${API_URL}/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
     });
 
     const data = await response.json();
@@ -94,16 +100,13 @@ registerForm.addEventListener('submit', async (e) => {
     if (response.ok) {
       registerMessage.textContent = '¡Registro exitoso! Ahora puedes iniciar sesión.';
       registerMessage.classList.add('success');
-      // Opcional: cambiar automáticamente a login
-      setTimeout(() => {
-        toggleBtn.click();
-      }, 2000);
+      setTimeout(() => toggleBtn.click(), 2000);
     } else {
-      registerMessage.textContent = data.message || 'Error en registro';
+      registerMessage.textContent = data.error || 'Error en registro';
       registerMessage.classList.add('error');
     }
   } catch (err) {
     registerMessage.textContent = 'Error de conexión con el servidor.';
     registerMessage.classList.add('error');
   }
-});
+}); 

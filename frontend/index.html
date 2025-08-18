@@ -130,24 +130,23 @@ input[type="text"], input[type="password"] {
     <!-- Botón toggle: mantiene el id original para que app.js lo maneje -->
     <button id="toggleBtn" class="toggle-btn">¿No tienes cuenta? Regístrate</button>
 
-    <!-- Formulario Login (IDs intactos) -->
-    <form id="loginForm">
-      <h2 style="display:none">Iniciar sesión</h2>
-      <input type="text" id="loginUsername" placeholder="Usuario" required />
-      <input type="password" id="loginPassword" placeholder="Contraseña" required />
-      <button type="submit" class="form-button">Entrar</button>
-      <div id="loginMessage" class="message"></div>
-    </form>
+      <!-- Formulario Login -->
+      <form id="loginForm">
+        <input type="text" id="loginEmail" placeholder="Email" required />
+        <input type="password" id="loginPassword" placeholder="Contraseña" required />
+        <button type="submit" class="form-button">Entrar</button>
+        <div id="loginMessage" class="message"></div>
+      </form>
 
-    <!-- Formulario Registro (IDs intactos) -->
-    <form id="registerForm" style="display:none;">
-      <h2 style="display:none">Registrar usuario</h2>
-      <input type="text" id="registerUsername" placeholder="Usuario" required />
-      <input type="password" id="registerPassword" placeholder="Contraseña" required />
-      <input type="password" id="registerPasswordConfirm" placeholder="Confirmar contraseña" required />
-      <button type="submit" class="form-button">Registrar</button>
-      <div id="registerMessage" class="message"></div>
-    </form>
+      <!-- Formulario Registro -->
+      <form id="registerForm" style="display:none;">
+        <input type="text" id="registerNombre" placeholder="Nombre" required />
+        <input type="email" id="registerEmail" placeholder="Email" required />
+        <input type="password" id="registerPassword" placeholder="Contraseña" required />
+        <input type="password" id="registerPasswordConfirm" placeholder="Confirmar contraseña" required />
+        <button type="submit" class="form-button">Registrar</button>
+        <div id="registerMessage" class="message"></div>
+      </form>
 
     <div class="footer-note">Minecraft 1.21.8</div>
   </div>
